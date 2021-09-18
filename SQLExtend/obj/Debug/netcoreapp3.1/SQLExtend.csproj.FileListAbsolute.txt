@@ -1,0 +1,10 @@
+C:\SQLExtend\SQLExtend\bin\Debug\netcoreapp3.1\SQLExtend.deps.json
+C:\SQLExtend\SQLExtend\bin\Debug\netcoreapp3.1\SQLExtend.dll
+C:\SQLExtend\SQLExtend\bin\Debug\netcoreapp3.1\SQLExtend.pdb
+C:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.csproj.AssemblyReference.cache
+C:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.GeneratedMSBuildEditorConfig.editorconfig
+C:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.AssemblyInfoInputs.cache
+C:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.AssemblyInfo.cs
+C:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.csproj.CoreCompileInputs.cache
+C:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.dll
+C:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.pdb

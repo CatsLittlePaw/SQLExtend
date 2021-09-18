@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLExtend", "SQLExtend\SQLExtend.csproj", "{DF5064A0-3172-4CF0-92FA-ABC0848A3AAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF5064A0-3172-4CF0-92FA-ABC0848A3AAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF5064A0-3172-4CF0-92FA-ABC0848A3AAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF5064A0-3172-4CF0-92FA-ABC0848A3AAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF5064A0-3172-4CF0-92FA-ABC0848A3AAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D3B9C63C-A640-4EB8-988C-6F8B627C7A81}
+	EndGlobalSection
+EndGlobal
