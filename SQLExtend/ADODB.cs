@@ -261,8 +261,7 @@ namespace SQLExtend
                         }
                         Cols = string.Concat(Cols);
 
-                        int ind = whereSql.IndexOf(" ") + 1;
-                        whereSql = whereSql.Substring(ind, whereSql.Length - ind);   // WHERE XX=XX .... 第一個空白肯定是WHERE後
+                        whereSql = whereSql.Substring(whereSql.IndexOf(" ") + 1);   // WHERE XX=XX .... 第一個空白肯定是WHERE後
                         cmd.Parameters.Add(wherePara);  // Add傳入的WHERE Parameters
 
                         /*** 慘痛教訓，這邊這個sql必須一氣呵成串起來，否則會有SQL語法錯誤的問題 ***/
