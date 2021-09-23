@@ -175,7 +175,7 @@ namespace SQLExtend
         /// <history>
         /// 2021/09/23  Chris Liao  Create  僅建立，功能尚未測試
         /// </history>
-        public static int Update<T>(object obj, string whereSql, SqlParameter wherePara) where T : new()
+        public static int Update<T>(object obj, string whereSql, List<SqlParameter> wherePara) where T : new()
         {
             string connString = ConfigurationManager.ConnectionStrings["LocalDB"].ToString();
             string table = TypeDescriptor.GetClassName(obj).Split('.')[1];  // 以ClassName作為TableName
@@ -270,6 +270,149 @@ namespace SQLExtend
 
                         cmd.CommandText = sql;
                         return cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(string.Concat("\n", ex.ToString()));
+                        throw ex;
+                    }
+                    finally
+                    {
+                        if (conn.State == ConnectionState.Open)
+                        {
+                            conn.Close();
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>        
+        /// <history>
+        /// 2021/09/23  Chris Liao  Create  僅建立，功能尚未測試
+        /// </history>
+        public static int Delete<T>(object obj) where T : new()
+        {
+            string connString = ConfigurationManager.ConnectionStrings["LocalDB"].ToString();
+            string table = TypeDescriptor.GetClassName(obj).Split('.')[1];  // 以ClassName作為TableName
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    try
+                    {
+                        cmd.Connection = conn;
+                        conn.Open();
+
+                        List<PropertyInfo> properties = typeof(T).GetProperties().ToList();
+                        bool FirstColFlag = true;
+                        string Cols = "";
+                        string paras = "";
+                        foreach (var property in properties)
+                        {
+                            // 若有提供成員變數值，則Insert包含該欄位(以該成員變數作為欄位名稱)
+                            if (property.GetValue(obj) != null)
+                            {
+                                if (FirstColFlag)
+                                {
+                                    Cols = string.Concat(Cols, property.Name, " = @", property.Name);                                   
+                                    cmd.Parameters.Add(new SqlParameter("@" + property.Name, property.GetValue(obj)));
+                                    if (property.PropertyType == typeof(string))
+                                    {
+                                        paras = string.Concat(paras, property.Name, ": ", "'", property.GetValue(obj), "'");
+                                    }
+                                    else
+                                    {
+                                        paras = string.Concat(paras, property.Name, ": ", property.GetValue(obj));
+                                    }
+                                    FirstColFlag = false;
+                                }
+                                else
+                                {
+                                    Cols = string.Concat(Cols, ", ", property.Name, " = @", property.Name);
+                                    cmd.Parameters.Add(new SqlParameter("@" + property.Name, property.GetValue(obj)));
+
+                                    if (property.PropertyType == typeof(string))
+                                    {
+                                        paras = string.Concat(paras, ", ", property.Name, ": ", "'", property.GetValue(obj), "'");
+                                    }
+                                    else
+                                    {
+                                        paras = string.Concat(paras, ", ", property.Name, ": ", property.GetValue(obj));
+                                    }
+                                }
+                            }                         
+                        }
+
+                        /*** 慘痛教訓，這邊這個sql必須一氣呵成串起來，否則會有SQL語法錯誤的問題 ***/
+                        string sql = string.Concat("DELETE FROM ", table, "WHERE ", Cols);
+                        log.Info(string.Concat("\n\t", sql, "\nParamaters: { ", paras, " }"));
+
+                        cmd.CommandText = sql;
+                        return cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(string.Concat("\n", ex.ToString()));
+                        throw ex;
+                    }
+                    finally
+                    {
+                        if (conn.State == ConnectionState.Open)
+                        {
+                            conn.Close();
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Query
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        /// <history>
+        /// 2021/09/23  Chris Liao  Create  僅建立，功能尚未測試
+        /// </history>
+        public static DataTable Query<T>(string sql, List<SqlParameter> parameters) where T : new()
+        {
+            string connString = ConfigurationManager.ConnectionStrings["LocalDB"].ToString();
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    try
+                    {
+                        DataTable dt = new DataTable();
+                        string paras = "";
+                        cmd.Connection = conn;
+                        conn.Open();
+
+                        
+                        foreach (var p in parameters)
+                        {
+                            paras = string.IsNullOrEmpty(paras) ? string.Concat(paras, p.ParameterName, ": ", p.Value)
+                                : string.Concat(paras, ", ", p.ParameterName, ": ", p.Value);
+                        }
+
+                        log.Info(string.Concat("\n\t", sql, "\nParamaters: { ", paras, " }"));
+
+                        cmd.CommandText = sql;
+                        cmd.Parameters.Add(parameters);
+
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dt);
+                        return dt;
                     }
                     catch (Exception ex)
                     {
