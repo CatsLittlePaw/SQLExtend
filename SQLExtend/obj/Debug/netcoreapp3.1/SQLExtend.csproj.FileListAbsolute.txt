@@ -8,12 +8,11 @@ C:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.AssemblyInfo.cs
 C:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.csproj.CoreCompileInputs.cache
 C:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.dll
 C:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.pdb
+D:\SQLExtend\SQLExtend\bin\Debug\netcoreapp3.1\SQLExtend.deps.json
+D:\SQLExtend\SQLExtend\bin\Debug\netcoreapp3.1\SQLExtend.dll
+D:\SQLExtend\SQLExtend\bin\Debug\netcoreapp3.1\SQLExtend.pdb
 D:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.AssemblyInfoInputs.cache
 D:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.AssemblyInfo.cs
 D:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.csproj.CoreCompileInputs.cache
 D:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.dll
 D:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.pdb
-D:\SQLExtend\SQLExtend\bin\Debug\netcoreapp3.1\SQLExtend.deps.json
-D:\SQLExtend\SQLExtend\bin\Debug\netcoreapp3.1\SQLExtend.dll
-D:\SQLExtend\SQLExtend\bin\Debug\netcoreapp3.1\SQLExtend.pdb
-D:\SQLExtend\SQLExtend\obj\Debug\netcoreapp3.1\SQLExtend.csprojAssemblyReference.cache
