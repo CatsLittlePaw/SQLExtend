@@ -192,7 +192,8 @@ namespace SQLExtend
                         List<PropertyInfo> properties = typeof(T).GetProperties().ToList();
                         bool FirstColFlag = true;
                         string Cols = "";
-                        string paras = "";
+                        Dictionary<string, string> paras = new Dictionary<string, string>();
+
                         foreach (var property in properties)
                         {
                             // 若有提供成員變數值，則Insert包含該欄位(以該成員變數作為欄位名稱)
@@ -204,11 +205,11 @@ namespace SQLExtend
                                     cmd.Parameters.Add(new SqlParameter("@" + property.Name, property.GetValue(obj)));
                                     if (property.PropertyType == typeof(string))
                                     {
-                                        paras = string.Concat(paras, property.Name, ": ", "'", property.GetValue(obj), "'");
+                                        paras.Add(property.Name, string.Concat("'", property.GetValue(obj), "'"));
                                     }
                                     else
                                     {
-                                        paras = string.Concat(paras, property.Name, ": ", property.GetValue(obj));
+                                        paras.Add(property.Name, property.GetValue(obj).ToString());
                                     }
                                     FirstColFlag = false;
                                 }
@@ -219,11 +220,11 @@ namespace SQLExtend
 
                                     if (property.PropertyType == typeof(string))
                                     {
-                                        paras = string.Concat(paras, ", ", property.Name, ": ", "'", property.GetValue(obj), "'");
+                                        paras.Add(property.Name, string.Concat("'", property.GetValue(obj), "'"));
                                     }
                                     else
                                     {
-                                        paras = string.Concat(paras, ", ", property.Name, ": ", property.GetValue(obj));
+                                        paras.Add(property.Name, property.GetValue(obj).ToString());
                                     }
                                 }
                             }
@@ -266,7 +267,12 @@ namespace SQLExtend
 
                         /*** 慘痛教訓，這邊這個sql必須一氣呵成串起來，否則會有SQL語法錯誤的問題 ***/
                         string sql = string.Concat("UPDATE [", table, "] SET ", Cols, " WHERE 1=1 ", (string.IsNullOrEmpty(whereSql) ? "" : "AND " + whereSql));
-                        log.Info(string.Concat("\n\t", sql, "\nParamaters: { ", paras, " }"));
+                        string logSql = sql;
+                        foreach(var item in paras)
+                        {
+                            logSql.Replace(item.Key, item.Value);
+                        }
+                        log.Info(string.Concat("\n\t", logSql));
 
                         cmd.CommandText = sql;
                         return cmd.ExecuteNonQuery();
